@@ -1,0 +1,44 @@
+version: '3'
+services:
+  nginx-rate:
+   container_name: nginx-container
+   image: nginx:latest
+   restart: always
+   ports:
+   - 80:80
+   - 443:443
+#   volumes:
+#   - ./nginx/conf.d:/etc/nginx/conf.d
+#   -
+   depends_on:
+   - rate-web
+
+  rate-postgres:
+    image: postgres:latest
+    container_name: rate-postgres
+    ports:
+      - 5432:5432
+    networks:
+      - database_network
+    environment:
+      POSTGRES_PASSWORD: rate123
+      POSTGRES_USER: ratingsystem
+
+
+  rate-web:
+    container_name: rate-web-container
+    image: phamleanh05/rate-java:v1.0.0
+    working_dir: /web
+    volumes:
+      - ./RateSystem:/web
+    ports:
+      - 8086:8085
+    depends_on:
+      - rate-postgres
+    networks:
+      - database_network
+
+networks:
+  database_network:
+    driver: bridge
+
