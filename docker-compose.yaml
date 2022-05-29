@@ -23,7 +23,7 @@ services:
     environment:
       POSTGRES_PASSWORD: rate123
       POSTGRES_USER: ratingsystem
-
+      POSTGRES_DATABASE: postgresdb
 
   rate-web:
     container_name: rate-web-container

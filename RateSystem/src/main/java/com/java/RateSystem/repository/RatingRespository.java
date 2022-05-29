@@ -1,14 +1,14 @@
 package com.java.RateSystem.repository;
 
 import com.java.RateSystem.models.Rating;
+//import com.sun.xml.bind.v2.schemagen.xmlschema.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import com.java.RateSystem.models.Services;
 
+import java.util.UUID;
 import java.util.List;
-import java.util.Optional;
-public interface ServiceRepository extends JpaRepository<Services, Integer> {
-    @Query("SELECT s FROM Services s WHERE s.Id = ?1")
-    List<Services> findByOtherId(Integer ServiceId);
+public interface RatingRespository extends JpaRepository<Rating, UUID>{
+    @Query("SELECT s FROM Rating s WHERE s.ServiceId = ?1")
+    List<Rating> findByServiceId(Integer ServiceId);
 }
